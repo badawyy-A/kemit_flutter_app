@@ -7,59 +7,60 @@ jobs:
   build-ios:
     name: 🎉 iOS Build
     runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - uses: subosito/flutter-action@v2
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🧰 Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           architecture: x64
 
-      - name: Get Flutter packages
+      - name: 📦 Get Flutter dependencies
         run: flutter pub get
 
-      - name: Ensure iOS folder exists
+      - name: 🏗️ Ensure iOS folder exists
         run: flutter create .
 
-      - name: Create Podfile if missing
+      - name: 🧱 Create Podfile if missing
         run: |
           if [ ! -f ios/Podfile ]; then
-            cat <<EOF > ios/Podfile
-            platform :ios, '14.0'
-
-            use_frameworks!
-            use_modular_headers!
-
-            target 'Runner' do
-              flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-            end
-            EOF
+            echo "platform :ios, '14.0'" > ios/Podfile
+            echo "" >> ios/Podfile
+            echo "use_frameworks!" >> ios/Podfile
+            echo "use_modular_headers!" >> ios/Podfile
+            echo "" >> ios/Podfile
+            echo "target 'Runner' do" >> ios/Podfile
+            echo "  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))" >> ios/Podfile
+            echo "end" >> ios/Podfile
           fi
 
-      - name: Update CocoaPods repo
+      - name: 🔄 Update CocoaPods repo
         run: pod repo update
         working-directory: ios
 
-      - name: Install CocoaPods
+      - name: 📥 Install CocoaPods dependencies
         run: pod install
         working-directory: ios
 
-      - name: Build iOS App (no codesign)
+      - name: 🏗️ Build iOS app (no codesign)
         run: flutter build ios --release --no-codesign
 
-      - name: Create Payload folder
+      - name: 📁 Create Payload folder
         run: mkdir Payload
         working-directory: build/ios/iphoneos
 
-      - name: Move .app to Payload
+      - name: 📦 Move .app to Payload
         run: mv Runner.app/ Payload
         working-directory: build/ios/iphoneos
 
-      - name: Zip output
+      - name: 🗜️ Zip Payload to create .ipa
         run: zip -qq -r -9 FlutterIpaExport.ipa Payload
         working-directory: build/ios/iphoneos
 
-      - name: Upload binaries to release
+      - name: 🚀 Upload IPA to GitHub release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
