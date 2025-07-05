@@ -1,0 +1,2 @@
+E:/projects/kemit/android/app/.cxx/Debug/3j2y3k4s/x86/CMakeFiles/edit_cache.dir
+E:/projects/kemit/android/app/.cxx/Debug/3j2y3k4s/x86/CMakeFiles/rebuild_cache.dir

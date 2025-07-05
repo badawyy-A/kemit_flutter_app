@@ -1,0 +1,2 @@
+E:/projects/FlutterCode-main/FlutterCode-main/KEMMITFlutterApp/android/app/.cxx/Debug/1648gw2e/x86_64/CMakeFiles/edit_cache.dir
+E:/projects/FlutterCode-main/FlutterCode-main/KEMMITFlutterApp/android/app/.cxx/Debug/1648gw2e/x86_64/CMakeFiles/rebuild_cache.dir
