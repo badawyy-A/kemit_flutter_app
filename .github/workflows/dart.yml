@@ -14,18 +14,45 @@ jobs:
         with:
           channel: 'stable'
           architecture: x64
-      - run: flutter pub get
-      
 
-      - run: pod repo update
+      - name: Get Flutter packages
+        run: flutter pub get
+
+      - name: Ensure iOS folder exists
+        run: flutter create .
+
+      - name: Create Podfile if missing
+        run: |
+          if [ ! -f ios/Podfile ]; then
+            cat <<EOF > ios/Podfile
+            platform :ios, '14.0'
+
+            use_frameworks!
+            use_modular_headers!
+
+            target 'Runner' do
+              flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+            end
+            EOF
+          fi
+
+      - name: Update CocoaPods repo
+        run: pod repo update
         working-directory: ios
 
-      - run: flutter build ios --release --no-codesign
+      - name: Install CocoaPods
+        run: pod install
+        working-directory: ios
 
-      - run: mkdir Payload
+      - name: Build iOS App (no codesign)
+        run: flutter build ios --release --no-codesign
+
+      - name: Create Payload folder
+        run: mkdir Payload
         working-directory: build/ios/iphoneos
 
-      - run: mv Runner.app/ Payload
+      - name: Move .app to Payload
+        run: mv Runner.app/ Payload
         working-directory: build/ios/iphoneos
 
       - name: Zip output
