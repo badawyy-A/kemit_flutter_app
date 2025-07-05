@@ -1,0 +1,74 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+build/
+flutter_*.png
+
+# IntelliJ related
+.idea/
+*.iml
+
+# VS Code related
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Android
+android/.gradle/
+android/app/build/
+android/local.properties
+android/.idea/
+android/.settings/
+android/*.iml
+*.apk
+*.jks
+
+# iOS
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/App.framework
+ios/Flutter/Generated.xcconfig
+ios/.symlinks/
+ios/.flutter-plugins
+ios/.flutter-plugins-dependencies
+ios/Flutter/ephemeral/
+ios/build/
+ios/.generated/
+*.xcuserstate
+
+# Web
+web/.dart_tool/
+web/build/
+
+# Linux
+linux/flutter/ephemeral/
+linux/build/
+
+# Windows
+windows/flutter/ephemeral/
+windows/build/
+
+# Fuchsia
+fuchsia/flutter/ephemeral/
+
+# Misc
+*.log
+*.tmp
+*.lock
+*.swp
+*.bak
+*.orig
+
+# Firebase or .env files (if used)
+.env
+.env.*
+
+# Coverage
+coverage/
+
+# Symbolic Links
+pubspec.lock
